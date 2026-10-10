@@ -10,8 +10,8 @@ declare o uuid:=gen_random_uuid();u uuid;c uuid;inv jsonb;a jsonb;result jsonb;k
  select candidate_id into c from ma_invitations where id=(inv->>'id')::uuid;
  begin perform ma_enroll('fixture-hash-1',u,'fixture@example.invalid','+15555550100',false);raise exception 'Consent bypass succeeded';exception when raise_exception then if SQLERRM<>'Consent required' then raise;end if;end;
  begin perform ma_enroll('fixture-hash-1',u,'wrong@example.invalid','+15555550100',true);raise exception 'Identity bypass succeeded';exception when raise_exception then if SQLERRM<>'Identity mismatch' then raise;end if;end;
- result:=ma_enroll('fixture-hash-1',u,'fixture@example.invalid','+15555550100',true);
- a:=ma_start('fixture-hash-1',u,'fixture@example.invalid','+15555550100');
+ result:=ma_enroll('fixture-hash-1',u,'fixture@example.invalid',null,true);
+ a:=ma_start('fixture-hash-1',u,'fixture@example.invalid',null);
  if(select count(*)from ma_attempt_questions where attempt_id=(a->>'id')::uuid)<>31 then raise exception 'Snapshot not frozen';end if;
  begin perform ma_start('fixture-hash-1',u,'fixture@example.invalid','+15555550100');raise exception 'Replay succeeded';exception when raise_exception then if SQLERRM<>'Invitation unavailable' then raise;end if;end;
  result:=ma_save((a->>'id')::uuid,u,0,'{"1":"Accurate"}');

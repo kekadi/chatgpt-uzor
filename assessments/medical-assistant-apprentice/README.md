@@ -8,7 +8,7 @@ Administrator dashboard: https://delta-ma-apprentice.vercel.app/admin.html
 
 Invitation enrollment is enabled in ma_release_settings. Administrators create seven-day links for an application ID, email, E.164 phone, and cohort. Copy and share manually; no invitation email is sent automatically. The server stores only a token hash. Reissuing revokes earlier unused links. Existing attempts must resume.
 
-Applicants create an email/password account, confirm the email link, return to their invitation page, and sign in. They verify their invited phone by SMS and consent before starting. Both confirmation timestamps are mandatory on the server. **Supabase phone authentication is currently disabled**; new phone verification is blocked until the owner configures and enables its SMS provider in Auth Providers. Keep auto-confirm disabled. Previously verified applicants can proceed. Real email/SMS delivery is NOT TESTED.
+Applicants create an email/password account, confirm the email link, return to their invitation page, sign in, and consent before starting. Confirmed email is mandatory on the server and must match the personal invitation. Phone numbers are contact information only; no SMS or phone authentication is required. Supabase Phone authentication remains disabled. Real email delivery is NOT TESTED.
 
 The owner confirmed administrator sign-in works. The authorized existing account has the shared assessment_admin role, apprentice assessment_role, and Delta Medical PA organization membership. The caregiver role is retained. No password or session was created or retrieved.
 
@@ -42,4 +42,4 @@ To pause enrollment, set ma_release_settings.enrollment_enabled=false through a 
 
 ## Changelog
 2026-10-10: Created source-faithful assessment/demo, published Git source, deployed database/API/frontend and authorized the administrator.
-2026-10-10: Enabled invitation enrollment; implemented candidate consent/verification/save/resume/receipt, administrator invitation management, form snapshots and saved-answer deadline submission. Owner-side SMS activation remains required for new phone verification.
+2026-10-10: Enabled invitation enrollment; implemented candidate consent/verification/save/resume/receipt, administrator invitation management, form snapshots and saved-answer deadline submission. Phone verification was subsequently removed; confirmed email and consent remain required.

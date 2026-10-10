@@ -7,7 +7,7 @@ Environment: Node v24.19.0; Supabase nhjuafnlnhbhfshsqxpx; Vercel delta-ma-appre
 | Public output excludes keys/server source and contains parseable scripts | PASS | tests/public-build.test.mjs |
 | Admin data requires Auth, server role and organization membership | PASS | mocked API authorization tests; actual account role/org verified in SQL |
 | Administrator interactive sign-in | PASS | owner reported successful sign-in; agent did not retrieve a session |
-| Candidate unverified email/phone cannot enroll/start/save/submit | PASS | tests/enrollment-api.test.mjs |
+| Candidate unverified email cannot enroll/start/save/submit | PASS | tests/enrollment-api.test.mjs |
 | Reviewer cannot create/revoke invitations | PASS | mocked API role tests |
 | Invitation tokens random; only SHA256 hash persisted | PASS | mocked invitation API test and deployed source inspection |
 | Candidate API binds Auth identity, ignores client-supplied identity | PASS | mocked enrollment API test |
@@ -20,13 +20,13 @@ Environment: Node v24.19.0; Supabase nhjuafnlnhbhfshsqxpx; Vercel delta-ma-appre
 | Idempotent submit preserves submitted answers | PASS | real service_role rollback-only SQL test |
 | Two truly simultaneous live HTTP starts | NOT TESTED | database row locks and unique constraints inspected; sequential replay/duplicate tests passed |
 | RLS/no anonymous data privileges/no client release-update privileges | PASS | SQL privilege checks; security advisor only intentional no-policy informational notices |
-| Real applicant email/SMS delivery and full live applicant E2E | NOT TESTED | no real applicant/test contact was used; phone provider is disabled |
-| Phone provider readiness | FAIL | public Auth settings external.phone=false; enabled email, auto-confirm false |
+| Real applicant email/SMS delivery and full live applicant E2E | NOT TESTED | no real applicant/test contact was used; email confirmation delivery not exercised |
+| Phone authentication | REMOVED | Phone provider stays disabled; no phone/SMS gate or OTP request in apprentice enrollment |
 | Rendered public pages in desktop Chrome | PASS | live home, applicant and admin sign-in pages inspected at 1363 x 936; no horizontal overflow |
 | Public navigation and keyboard focus | PASS | home to applicant to admin links resolve; email Tab focuses password with visible outline; empty admin submit focuses required email |
 | Mobile viewport rendering and physical device behavior | NOT TESTED | responsive CSS reviewed; browser exposes no viewport resize API; Windows, macOS, Safari, iOS and Android hardware not exercised |
 | Canonical /candidate.html and /admin.html accessible without Vercel login | PASS | direct urllib GETs returned actual application HTML, 200, before this frontend release |
-| Edge function deployment | PASS | ma-apprentice-assessment ACTIVE v2, verify_jwt=true |
+| Edge function deployment | PASS | ma-apprentice-assessment ACTIVE v3, verify_jwt=true |
 | Enrollment release flag | PASS | additive migration enables invitation enrollment; verified by SQL |
 | No retained synthetic applicants | PASS | database tests rolled back |
 | New frontend immutable/canonical release | PASS | Vercel dpl_679s3y6UobqEUZPUZQsqSgdRhRQ1 READY, Git dfad5429dd0a56dc2e3ee7a13806bac4b47d216a; immutable applicant/admin and canonical home/applicant/admin HTTP 200 with updated content |
@@ -39,6 +39,8 @@ Original schema migration: 20261010073711_create_medical_assistant_apprentice_as
 Vercel protection was not modified. Automatic review rejected clearing whole-project SSO; direct canonical access already works, so no bypass was used.
 Existing caregiver records/functions remain untouched. No invitation messages were sent. No password, service credential, real user session or OTP was retrieved.
 
-Local command node --test tests/*.test.mjs: 26 passed, 0 failed. Tests for the original demo are included in this count and are distinct from live applicant UI tests.
+Local command node --test tests/*.test.mjs: 27 passed, 0 failed. Tests for the original demo are included in this count and are distinct from live applicant UI tests.
 
 Live browser QA used deployed source 256e5d4d99138e75d5b4c213bcaa556a8851107f, Vercel dpl_7s66asL7UWaWwcbeTVxkYEqzvGU5. Canonical /admin and /candidate resolve after the cleanUrls routing fix. All three public pages render without horizontal overflow at the tested desktop viewport. Applicant service status correctly reports disabled new phone verification and requires a personal invitation. Signed-in dashboard operations and the full applicant workflow were not exercised in this browser session. No application-origin console error was observed; browser extension errors were excluded. This QA update changes documentation only.
+
+Email-only authentication release: migration 20261010212017_remove_apprentice_phone_authentication.sql, Edge Function v3. Phone contact data retained; RPC p_phone kept for compatibility but no longer checked. Email confirmation, invitation email/Auth-user binding, consent, expiration/revocation, roles and attempt guards retained. Node tests: 27 passed. Email-only enrollment/start with null phone passed the live rollback-only database lifecycle test; revoked/wrong-email/consent/replay guards passed. No fixtures retained. Browser and HTTP deployment checks are reported separately after release.

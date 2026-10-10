@@ -40,15 +40,13 @@ Deno.serve(async req=>{
  }
  const release=await db('ma_release_settings?assessment_id=eq.ROLE-009-SA01&select=enrollment_enabled');
  if(!release[0]?.enrollment_enabled)return reply({error:'Applicant enrollment is closed'},503);
- // Email AND phone possession must have been verified by the configured Supabase Auth enrollment.
- // Identity enrollment and OTP delivery are intentionally not bypassed or simulated here.
- if(!user.email_confirmed_at||!user.phone_confirmed_at||!user.email||!user.phone)return reply({error:'Verify both registered email and phone before starting'},403);
- const phone=user.phone.startsWith('+')?user.phone:'+'+user.phone;
- if(b.action==='enroll'){if(typeof b.invitation_token!=='string'||!/^[0-9a-f]{64}$/.test(b.invitation_token))return reply({error:'Invitation required'},400);return reply(await db('rpc/ma_enroll','POST',{p_hash:await hash(b.invitation_token),p_user:user.id,p_email:user.email,p_phone:phone,p_consent:b.consent===true}));}
+ // Confirmed email is the login identity; contact phone is not authentication.
+ if(!user.email_confirmed_at||!user.email)return reply({error:'Verify your registered email before starting'},403);
+ if(b.action==='enroll'){if(typeof b.invitation_token!=='string'||!/^[0-9a-f]{64}$/.test(b.invitation_token))return reply({error:'Invitation required'},400);return reply(await db('rpc/ma_enroll','POST',{p_hash:await hash(b.invitation_token),p_user:user.id,p_email:user.email,p_phone:null,p_consent:b.consent===true}));}
  const candidates=await db('ma_candidates?user_id=eq.'+user.id+'&select=*');if(candidates.length!==1)return reply({error:'Enrollment required'},403);const c=candidates[0];
- if(c.email.toLowerCase()!==user.email.toLowerCase()||c.phone!==phone||!c.consent_at)return reply({error:'Registered identity or consent mismatch'},403);
+ if(c.email.toLowerCase()!==user.email.toLowerCase()||!c.consent_at)return reply({error:'Registered identity or consent mismatch'},403);
  if(b.action==='form'){let form=questions;if(b.attempt_id){if(!UUID.test(b.attempt_id))return reply({error:'Attempt required'},400);const owned=await db('ma_attempts?id=eq.'+b.attempt_id+'&candidate_id=eq.'+c.id+'&select=id');if(!owned.length)return reply({error:'Attempt not found'},404);const snapshot=await db('ma_attempt_questions?attempt_id=eq.'+b.attempt_id+'&select=snapshot&order=item_id.asc');if(snapshot.length!==31)return reply({error:'Assessment snapshot unavailable'},409);form=snapshot.map((x:any)=>x.snapshot);}return reply({version:'SA01-1.0-source',questions:form,references,time_limit_minutes:70,label:'Scored assessment'});}
- if(b.action==='start'){if(typeof b.invitation_token!=='string'||b.invitation_token.length<32||b.invitation_token.length>200)return reply({error:'Invalid invitation'},400);return reply(await db('rpc/ma_start','POST',{p_hash:await hash(b.invitation_token),p_user:user.id,p_email:user.email,p_phone:phone}));}
+ if(b.action==='start'){if(typeof b.invitation_token!=='string'||b.invitation_token.length<32||b.invitation_token.length>200)return reply({error:'Invalid invitation'},400);return reply(await db('rpc/ma_start','POST',{p_hash:await hash(b.invitation_token),p_user:user.id,p_email:user.email,p_phone:null}));}
  if(!UUID.test(b.attempt_id))return reply({error:'Attempt required'},400);
  const attempts=await db('ma_attempts?id=eq.'+b.attempt_id+'&candidate_id=eq.'+c.id+'&select=*');if(!attempts.length)return reply({error:'Attempt not found'},404);const a=attempts[0];
  if(b.action==='resume')return reply({id:a.id,status:a.status,answers:a.status==='in_progress'?a.answers:undefined,deadline:a.deadline,revision:a.revision});
