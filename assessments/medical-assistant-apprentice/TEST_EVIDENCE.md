@@ -34,6 +34,6 @@ Command: `node --test tests/*.test.mjs` — 14 passed, 0 failed. Run local tests
 - Edge Function active and JWT verification enabled: PASS (deploy result).
 - Vercel Git link verified: PASS (Git deployment context lists kekadi/chatgpt-uzor).
 - Production static build excludes server source and keys: PASS (tests/public-build.test.mjs).
-- Administrator provisioning: PENDING, identity needs explicit owner authorization.
+- Administrator provisioning: PASS, owner-authorized account has server-managed role and organization membership; verified by a targeted SQL read. Actual interactive administrator sign-in: NOT TESTED.
 - Email/SMS enrollment, real user admin flow and applicant end-to-end: NOT TESTED; disabled.
 - Security advisor informational notice: RLS without policies is intentional for service-only tables; anonymous/authenticated table privileges are revoked.
