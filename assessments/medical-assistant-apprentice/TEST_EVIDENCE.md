@@ -26,3 +26,14 @@ Environment: local Node v24.19.0. Source: this Site repository, initial version.
 | Source SME / pilot / legal evidence | NOT TESTED | not documented in supplied package |
 
 Command: `node --test tests/*.test.mjs` — 14 passed, 0 failed. Run local tests from the assessment folder. No live applicant data used. Private Site publication is an interactive demonstration; its native deployment outcome is separate from operational applicant release.
+
+## Infrastructure verification — 2026-10-10
+- Supabase schema applied: PASS (remote migration 20261010073711).
+- All 16 ma_ tables have RLS: PASS (pg_tables inspection).
+- Fixed item inventory seeded: 31 source question versions; no applicants enrolled.
+- Edge Function active and JWT verification enabled: PASS (deploy result).
+- Vercel Git link verified: PASS (Git deployment context lists kekadi/chatgpt-uzor).
+- Production static build excludes server source and keys: PASS (tests/public-build.test.mjs).
+- Administrator provisioning: PENDING, identity needs explicit owner authorization.
+- Email/SMS enrollment, real user admin flow and applicant end-to-end: NOT TESTED; disabled.
+- Security advisor informational notice: RLS without policies is intentional for service-only tables; anonymous/authenticated table privileges are revoked.

@@ -45,3 +45,10 @@ Keep the current source form immutable within a cohort. Create a prospective new
 
 ## Changelog
 2026-10-10: Created ROLE-009 source-based assessment preview and dashboard, source scoring engine, staged secure database/API design, and verification evidence. No applicants imported, messages sent, target database changed, or external Vercel project deployed.
+
+## Connected deployment — 2026-10-10
+Supabase project `nhjuafnlnhbhfshsqxpx`: 16 isolated `ma_` tables, RLS enabled, direct anonymous/authenticated table privileges revoked. Applied migration: `20261010073711_create_medical_assistant_apprentice_assessment.sql`. Seeded one Delta Medical organization, ROLE-009, the fixed assessment, and 31 versioned source items. No applicant records imported. `ma-apprentice-assessment` is deployed with JWT verification; candidate enrollment is disabled by default. Administrator assignment requires an explicitly authorized identity and remains pending.
+
+Vercel project `delta-ma-apprentice`, linked to `kekadi/chatgpt-uzor`; Root Directory `assessments/medical-assistant-apprentice`; build `node build-public.mjs`; Output Directory `public`. Build serves only `web/index.html`, the candidate-safe practice page, and `web/admin.html` with browser-safe configuration. Server source, answer keys, tests and SQL are excluded from hosted output. The new sign-in dashboard reads real API results and does not display demo fixtures. The original demonstration pages remain source examples, not production served output.
+
+Public build configuration: ASSESSMENT_SUPABASE_URL, ASSESSMENT_PUBLISHABLE_KEY, ASSESSMENT_API_URL, ASSESSMENT_ORG_ID. No Vercel secret/service key is required; scoring runs in the Supabase function using server-only built-in credentials. Existing Supabase caregiver data and Vercel projects were not modified.
