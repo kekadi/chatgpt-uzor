@@ -1,39 +1,35 @@
 # Verification evidence — 2026-10-10
-Environment: local Node v24.19.0. Source: this Site repository, initial version. Final commit is recorded by the Site publishing workflow.
+Environment: Node v24.19.0; Supabase nhjuafnlnhbhfshsqxpx; Vercel delta-ma-apprentice. See deployment commit metadata for source version.
 
-| Check | Result | Evidence / scope |
+| Check | Result | Evidence and scope |
 |---|---|---|
-| SA-01 inventory | PASS | 31 fixed items, Q11–30 each have 4 source choices |
-| Source answer keys, section maxima, total | PASS | tests/scoring.test.mjs; all correct produces 90 objective and 100 final |
-| Pending F and composite | PASS | null remains pending; subjective correct count null |
-| Clerical discrepancy handling | PASS | classification alone no credit |
-| Critical safety flag on high total | PASS | Q21 missed produces 95 and flag |
-| Bounds and CSV quoting/injection | PASS | scoring regression tests |
-| Dashboard initial load/filter/search | PASS | script-level synthetic tests, not a rendered browser |
-| Candidate detail and human review | PASS | script-level tests require six ratings, identity and rationale |
-| Candidate page strips reviewer data | PASS | no demo fixture names or rubric data in candidate-only payload |
-| Candidate practice save/receipt | PASS | script-level test; no real score generated |
-| JavaScript syntax | PASS | inline scripts parsed/executed under Node VM |
-| Actual browser layout/mobile/keyboard | NOT TESTED | browser-control skill unavailable; CSS/focus trap inspected only |
-| API/Deno typecheck and integration | NOT TESTED | source supplied, function not deployed |
-| Postgres schema / RLS runtime | NOT TESTED | proposal staged, not applied |
-| Concurrent start / duplicate replay | NOT TESTED | source locking/uniqueness only, needs real database tests |
-| Atomic submit / retake / auth roles | NOT TESTED | SQL/API design requires integration verification |
-| Email+phone OTP and identity workflow | NOT TESTED | enrollment/delivery not configured |
-| Cross-device resume / revocation / expiry | NOT TESTED | production frontend controls not implemented |
-| Production candidate/admin 401/403/200 | NOT TESTED | applicant launch disabled |
-| Immutable + canonical Vercel routes | NOT TESTED | no Vercel deployment performed |
-| Source SME / pilot / legal evidence | NOT TESTED | not documented in supplied package |
+| Fixed 31 items, objective keys, section maxima, pending F, critical flags, CSV | PASS | tests/scoring.test.mjs |
+| Public output excludes keys/server source and contains parseable scripts | PASS | tests/public-build.test.mjs |
+| Admin data requires Auth, server role and organization membership | PASS | mocked API authorization tests; actual account role/org verified in SQL |
+| Administrator interactive sign-in | PASS | owner reported successful sign-in; agent did not retrieve a session |
+| Candidate unverified email/phone cannot enroll/start/save/submit | PASS | tests/enrollment-api.test.mjs |
+| Reviewer cannot create/revoke invitations | PASS | mocked API role tests |
+| Invitation tokens random; only SHA256 hash persisted | PASS | mocked invitation API test and deployed source inspection |
+| Candidate API binds Auth identity, ignores client-supplied identity | PASS | mocked enrollment API test |
+| Deadline scores saved server responses, ignoring late edits | PASS | mocked API test |
+| Candidate sign-in, verified invitation/start, saves and receipt | PASS | mocked browser-script workflow, tests/enrollment-ui.test.mjs |
+| Consent/invitation mandatory; resume reuses attempt | PASS | mocked browser-script tests |
+| Real database consent/identity mismatch/revocation guards | PASS | service_role rollback-only SQL lifecycle test |
+| 31 immutable form snapshots on start | PASS | real service_role rollback-only SQL test |
+| Replay/stale save/duplicate original/unapproved retake blocked | PASS | real service_role rollback-only SQL test |
+| Idempotent submit preserves submitted answers | PASS | real service_role rollback-only SQL test |
+| Two truly simultaneous live HTTP starts | NOT TESTED | database row locks and unique constraints inspected; sequential replay/duplicate tests passed |
+| RLS/no anonymous data privileges/no client release-update privileges | PASS | SQL privilege checks; security advisor only intentional no-policy informational notices |
+| Real applicant email/SMS delivery and full live applicant E2E | NOT TESTED | no real applicant/test contact was used; phone provider is disabled |
+| Phone provider readiness | FAIL | public Auth settings external.phone=false; enabled email, auto-confirm false |
+| Actual rendered browser/mobile/keyboard behavior | NOT TESTED | no browser-control skill; script tests and CSS inspected |
+| Canonical /candidate.html and /admin.html accessible without Vercel login | PASS | direct urllib GETs returned actual application HTML, 200, before this frontend release |
+| Edge function deployment | PASS | ma-apprentice-assessment ACTIVE v2, verify_jwt=true |
+| Enrollment release flag | PASS | additive migration enables invitation enrollment; verified by SQL |
+| No retained synthetic applicants | PASS | database tests rolled back |
+| New frontend immutable/canonical release | PENDING RELEASE | run after Git commit/deployment; completion response records outcome |
 
-Command: `node --test tests/*.test.mjs` — 14 passed, 0 failed. Run local tests from the assessment folder. No live applicant data used. Private Site publication is an interactive demonstration; its native deployment outcome is separate from operational applicant release.
-
-## Infrastructure verification — 2026-10-10
-- Supabase schema applied: PASS (remote migration 20261010073711).
-- All 16 ma_ tables have RLS: PASS (pg_tables inspection).
-- Fixed item inventory seeded: 31 source question versions; no applicants enrolled.
-- Edge Function active and JWT verification enabled: PASS (deploy result).
-- Vercel Git link verified: PASS (Git deployment context lists kekadi/chatgpt-uzor).
-- Production static build excludes server source and keys: PASS (tests/public-build.test.mjs).
-- Administrator provisioning: PASS, owner-authorized account has server-managed role and organization membership; verified by a targeted SQL read. Actual interactive administrator sign-in: NOT TESTED.
-- Email/SMS enrollment, real user admin flow and applicant end-to-end: NOT TESTED; disabled.
-- Security advisor informational notice: RLS without policies is intentional for service-only tables; anonymous/authenticated table privileges are revoked.
+Applied enrollment migration: 20261010081302_enable_apprentice_invitation_enrollment.sql.
+Original schema migration: 20261010073711_create_medical_assistant_apprentice_assessment.sql.
+Vercel protection was not modified. Automatic review rejected clearing whole-project SSO; direct canonical access already works, so no bypass was used.
+Existing caregiver records/functions remain untouched. No invitation messages were sent. No password, service credential, real user session or OTP was retrieved.

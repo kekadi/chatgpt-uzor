@@ -1,54 +1,45 @@
-# Delta Medical PA — Medical Assistant Apprentice selection
+# Delta Medical PA — Medical Assistant Apprentice
+SA01-1.0-source · USER_AUTHORIZED_SCORED_USE · Scored assessment
 
-Version: SA01-1.0-source. Status: USER_AUTHORIZED_SCORED_USE. Display: Scored assessment.
+## Live application
+Home: https://delta-ma-apprentice.vercel.app/
+Applicant enrollment: https://delta-ma-apprentice.vercel.app/candidate.html
+Administrator dashboard: https://delta-ma-apprentice.vercel.app/admin.html
 
-## Delivered
-Private owner-only interactive dashboard preview, a source-faithful printable candidate assessment, browser practice form, scoring engine, staged Postgres schema, authenticated Supabase Edge API source, synthetic fixtures, and executable tests. The preview is a demonstration, not an applicant production deployment.
+Invitation enrollment is enabled in ma_release_settings. Administrators create seven-day links for an application ID, email, E.164 phone, and cohort. Copy and share manually; no invitation email is sent automatically. The server stores only a token hash. Reissuing revokes earlier unused links. Existing attempts must resume.
 
-The supplied SA-01 form has 30 objective questions (90 points) and a written exercise (10 points), 70 minutes. A–F maxima: 20/15/15/25/15/10. An inaccurate clerical entry requires both discrepancy classification and the correct field; choosing only Discrepancy receives no credit. No other partial objective credit is awarded.
+Applicants create an email/password account, confirm the email link, return to their invitation page, and sign in. They verify their invited phone by SMS and consent before starting. Both confirmation timestamps are mandatory on the server. **Supabase phone authentication is currently disabled**; new phone verification is blocked until the owner configures and enables its SMS provider in Auth Providers. Keep auto-confirm disabled. Previously verified applicants can proceed. Real email/SMS delivery is NOT TESTED.
 
-SA-02 supplies the objective keys and six written-rubric full-credit standards. F ratings are entered by a human. Unrated F is null; no total /100 exists until F is rated. Objective subtotal remains /90. The dashboard does not fabricate subjective correct/incorrect counts. Source internal recommendations: total >=75, D>=20/25, Q21–23 correct. Flags require documented human disposition; the app does not automatically decide employment. Composite = written*.40 + F09*.30 + F10*.30 only once every result exists. Only applicants with all gates documented as passed should be ranked.
+The owner confirmed administrator sign-in works. The authorized existing account has the shared assessment_admin role, apprentice assessment_role, and Delta Medical PA organization membership. The caregiver role is retained. No password or session was created or retrieved.
 
-The 120 supplemental role prompts are outside this form and are not imported here. Never mix them into the source form's 100-point denominator. F-09/F-10 full instruments were not supplied; fixture numbers are examples only. Supply the existing instruments and approve their review workflow before launch. No independent validation or item-specific SME signoff is documented in the source package.
+## Assessment
+Fixed SA-01: 70 minutes, 30 objective items (90 points), one human-graded written exercise (10). Section maxima A–F: 20/15/15/25/15/10. Clerical discrepancies require the correct field. SA-02 keys remain server-only. F requires six human ratings and evidence; until then, F and total /100 are pending. Internal recommendations >=75, D>=20/25, Q21–23 correct require documented human review. No automated hiring decision.
 
-## Files and authoritative source
-- `src/questions.json`: 31 candidate-safe source items.
-- `src/scoring.mjs`: server-only objective keys, scoring, rubric, composite and CSV utilities. Never serve this file as a frontend asset.
-- `supabase/functions/assessment/index.ts`: authenticated API source. Launch disabled by default. Uses the Auth user endpoint for verified identity, app_metadata role + organization membership for admin access, and service credentials on the server only.
-- `migrations/schema-proposal.sql`: unapplied schema/RPC proposal; unique numbered attempts and service-only atomic start/save/submit/review.
-- `tests/`: source scoring and UI-script tests.
-- In this assessment folder: `template.html`, `build-demo.mjs`, `index.html`, `admin.html`, and `candidate.html` private demo, `TEST_EVIDENCE.md`.
+Supplemental prompts are excluded. Interview F-09 and work-sample F-10 instruments were not supplied; final composite ranking remains unavailable. No independent psychometric validation is documented in this package.
 
-Source documents: SA-01_Candidate_Selection_Assessment.docx, SA-02_Answer_Key_and_Scoring_Guide.docx, SA-03_Assessment_Administration_Protocol.docx, SA-04_Final_Selection_Scorecard.docx. Their authoritative documents remain in the user's files; this project does not replace them.
+## Architecture
+GitHub: kekadi/chatgpt-uzor, branch assessment/medical-assistant-apprentice, folder assessments/medical-assistant-apprentice/, draft PR #1. Explicit Git deployments do not require merging.
 
-## Run and review
-From this assessment folder: `node build-demo.mjs` then `node --test tests/*.test.mjs`.
+Vercel: delta-ma-apprentice, Other framework, node build-public.mjs, output public. Only web/index.html, web/candidate.html, and web/admin.html are served. Original top-level HTML/build-demo.mjs files are demo examples. SQL, tests, source keys and server code are excluded. Vercel protection was not changed; canonical pages are directly reachable. Administrator data still requires Supabase Auth and server authorization.
 
-Open the private site's root or `/admin.html` for the demonstration dashboard and `/candidate.html` for the candidate-only practice form. The demo stores changes only in sessionStorage. It contains fictional names and mock patient data; do not enter real applicants. Print the candidate form from the guide. CSV exported data is explicitly DEMO. Closing the browser session may remove changes. Server scoring source is not part of the static asset directory.
+Public build variables: ASSESSMENT_SUPABASE_URL, ASSESSMENT_PUBLISHABLE_KEY, ASSESSMENT_API_URL, ASSESSMENT_ORG_ID. Supabase service credentials remain server-only.
 
-## Applicant launch runbook — not yet executed
-1. Select a dedicated project/organization and authorized admin identities. The connected Supabase project was discovered but not modified; existing Vercel sites were not modified. Do not assume the discovered project belongs to this workflow.
-2. Inspect target tables, RLS, Auth settings, functions and migration history. Install the current CLI only through an approved setup; use `supabase --help`, `supabase migration new ma_apprentice`, and place the staged SQL in that generated migration after review. Apply only to the chosen project and run database/security advisers. Seed ROLE-009, assessment config, candidates and versioned immutable items through a reviewed server process.
-3. Configure verified email and phone possession via Supabase Auth, email/SMS delivery, CAPTCHA, rate limiting, invitation expiry, short-lived sessions, device-change review and an accessible supervised alternative. The supplied API rejects unverified email/phone; it does not implement enrollment, OTP delivery, SMS-provider configuration or accessible override approval. Auth handles OTP storage; never create a plaintext OTP table.
-4. Create server-owned app_metadata.assessment_role and a matching ma_user_roles organization entry. Frontend sign-in should use only a publishable key. Configure server-only service credential and exact allowed origins. Never publish private scoring files or service keys.
-5. Finish live frontend wiring to the API and verified enrollment: the delivered frontend is a private preview, not the production authentication/invitation UI. Add invitation creation/revoke/resend, consent storage, audit-backed retake approval, administrator decision endpoints, attachments if needed, pagination, and cross-device autosave. Existing Edge actions: form/start/resume/save/submit/admin-list/admin-review. Retakes need a ma_retakes row with approval and a matching invitation; source constraints reject mismatched retakes. No invitation delivery is implemented.
-6. Preserve the fixed item/version snapshot and approved accommodation timing per cohort. The API currently uses the 70-minute standard; add approved timing extensions on the server before accommodating applicants. Freeze versioned candidate-safe form snapshots on start. Complete expiry behavior including preserving server autosave at deadline; do not rely on the preview timer.
-7. Approve privacy notice, retention/legal holds, accommodations/appeal contact, reviewer roles, prospective scoring rules and F-09/F-10 instruments. Approval of scored use is not evidence of predictive validity. Review outcomes after each cohort.
-8. Execute every live acceptance check in TEST_EVIDENCE.md. Do not enable ASSESSMENT_LAUNCH_ENABLED until blockers are resolved. The guard is intentionally false by default.
-9. For Vercel use one source folder `assessments/medical-assistant-apprentice/`, Other/static settings, and candidate/admin direct routes; copy only candidate-safe/public frontend assets. Review CSP and security headers against finalized code. Configure frontend API origin and provider Auth settings. Verify immutable and canonical candidate/admin URLs separately. Do not expose a candidate URL without owner authorization.
+Supabase nhjuafnlnhbhfshsqxpx: 17 isolated ma_ tables, RLS, no anonymous/authenticated table access. Applied migrations 20261010073711_create_medical_assistant_apprentice_assessment.sql and 20261010081302_enable_apprentice_invitation_enrollment.sql. Edge ma-apprentice-assessment version 2 is active, verify_jwt=true. Legacy caregiver records are untouched.
 
-## Privacy notice template — complete before launch
-Delta Medical PA collects the applicant's name/application ID, verified contact details, assessment responses, relevant administration adjustments, reviewer ratings and hiring rationale for recruitment. Do not submit patient information, medical history or diagnosis. Contact: [administrator email]. Retention: [approved duration and legal-hold policy]. Accommodation/appeal contact: [contact and process]. Access limited to authorized recruitment staff. Define deletion, recovery, export and audit policy before collection.
+API: enroll/form/start/resume/save/submit/admin-list/admin-review/admin-invite/admin-invitations/admin-revoke. Candidate forms freeze at start. Row locks, unique original-attempt constraints, revision guards and idempotency protect lifecycle operations. Retakes require approval and a matching numbered invitation; no self-service retake UI. At deadline only server-saved answers are scored. Reopen the invitation and sign in to resume. The timer continues if the browser closes. Reconnect and submit saved answers if deadline submission could not reach the server.
 
-## Maintenance / rollback
-Keep the current source form immutable within a cohort. Create a prospective new version for changed questions/keys/rubrics. Revert static preview via the previous saved Site version. Never erase assessment attempts or audit history as a rollback. Add database migrations prospectively; backup/restore and candidate-data migration must be tested separately. Do not delete records under legal hold. Re-run scoring regression tests for every key/rubric change.
+## Operations
+1. Configure/enable SMS in Supabase and verify both real delivery channels with an authorized test applicant.
+2. Sign in, create invitation, copy the displayed link, and share it with the intended applicant. Plaintext tokens cannot be retrieved later.
+3. Applicant verifies both contacts, consents, then starts/resumes. Human reviewers grade F and document dispositions.
+4. Confirm accommodations before starting. Current timing is the fixed 70-minute standard; server timing extensions must be implemented before use.
+5. Establish organization retention/deletion policy. Contact for privacy, accommodations and appeals: paul.uzor@delta-medical.com. Do not collect patient information or applicant medical histories.
+
+## Verification and rollback
+Build with the four public variables, then node --test tests/*.test.mjs. Backend/UI tests mock Auth and network and do not prove OTP delivery. tests/enrollment-database.sql exercises real database controls within a rollback transaction, preserving zero synthetic applicants. See TEST_EVIDENCE.md.
+
+To pause enrollment, set ma_release_settings.enrollment_enabled=false through a reviewed service-side update. Preserve existing attempts/audit records. Revert the application Git commit and deploy that exact commit for frontend rollback; never delete records or undo additive schema changes. Version changed questions/keys prospectively and rerun tests.
 
 ## Changelog
-2026-10-10: Created ROLE-009 source-based assessment preview and dashboard, source scoring engine, staged secure database/API design, and verification evidence. No applicants imported, messages sent, target database changed, or external Vercel project deployed.
-
-## Connected deployment — 2026-10-10
-Supabase project `nhjuafnlnhbhfshsqxpx`: 16 isolated `ma_` tables, RLS enabled, direct anonymous/authenticated table privileges revoked. Applied migration: `20261010073711_create_medical_assistant_apprentice_assessment.sql`. Seeded one Delta Medical organization, ROLE-009, the fixed assessment, and 31 versioned source items. No applicant records imported. `ma-apprentice-assessment` is deployed with JWT verification; candidate enrollment is disabled by default. The owner-authorized existing administrator account is assigned the server-managed assessment_admin role and Delta Medical organization membership. The legacy role claim is retained for the caregiver assessment. No password or session was created or retrieved.
-
-Vercel project `delta-ma-apprentice`, linked to `kekadi/chatgpt-uzor`; Root Directory `assessments/medical-assistant-apprentice`; build `node build-public.mjs`; Output Directory `public`. Build serves only `web/index.html`, the candidate-safe practice page, and `web/admin.html` with browser-safe configuration. Server source, answer keys, tests and SQL are excluded from hosted output. The new sign-in dashboard reads real API results and does not display demo fixtures. The original demonstration pages remain source examples, not production served output.
-
-Public build configuration: ASSESSMENT_SUPABASE_URL, ASSESSMENT_PUBLISHABLE_KEY, ASSESSMENT_API_URL, ASSESSMENT_ORG_ID. No Vercel secret/service key is required; scoring runs in the Supabase function using server-only built-in credentials. Existing Supabase caregiver data and Vercel projects were not modified.
+2026-10-10: Created source-faithful assessment/demo, published Git source, deployed database/API/frontend and authorized the administrator.
+2026-10-10: Enabled invitation enrollment; implemented candidate consent/verification/save/resume/receipt, administrator invitation management, form snapshots and saved-answer deadline submission. Owner-side SMS activation remains required for new phone verification.

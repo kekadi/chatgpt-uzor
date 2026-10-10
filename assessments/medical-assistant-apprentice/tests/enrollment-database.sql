@@ -1,0 +1,30 @@
+begin;
+set local role service_role;
+do $$
+declare o uuid:=gen_random_uuid();u uuid;c uuid;inv jsonb;a jsonb;result jsonb;key uuid:=gen_random_uuid();begin
+ select r.user_id into u from ma_user_roles r join ma_organizations org on org.id=r.org_id where org.name='Delta Medical PA' and r.role='assessment_admin' limit 1;
+ if u is null then raise exception 'An authorized existing administrator is required';end if;
+ insert into ma_organizations(id,name)values(o,'ROLLBACK-only enrollment fixture');
+ insert into ma_user_roles(org_id,user_id,role)values(o,u,'assessment_admin');
+ inv:=ma_invite(o,u,'fixture-1','fixture@example.invalid','+15555550100','synthetic','fixture-hash-1');
+ select candidate_id into c from ma_invitations where id=(inv->>'id')::uuid;
+ begin perform ma_enroll('fixture-hash-1',u,'fixture@example.invalid','+15555550100',false);raise exception 'Consent bypass succeeded';exception when raise_exception then if SQLERRM<>'Consent required' then raise;end if;end;
+ begin perform ma_enroll('fixture-hash-1',u,'wrong@example.invalid','+15555550100',true);raise exception 'Identity bypass succeeded';exception when raise_exception then if SQLERRM<>'Identity mismatch' then raise;end if;end;
+ result:=ma_enroll('fixture-hash-1',u,'fixture@example.invalid','+15555550100',true);
+ a:=ma_start('fixture-hash-1',u,'fixture@example.invalid','+15555550100');
+ if(select count(*)from ma_attempt_questions where attempt_id=(a->>'id')::uuid)<>31 then raise exception 'Snapshot not frozen';end if;
+ begin perform ma_start('fixture-hash-1',u,'fixture@example.invalid','+15555550100');raise exception 'Replay succeeded';exception when raise_exception then if SQLERRM<>'Invitation unavailable' then raise;end if;end;
+ result:=ma_save((a->>'id')::uuid,u,0,'{"1":"Accurate"}');
+ begin perform ma_save((a->>'id')::uuid,u,0,'{}');raise exception 'Stale autosave succeeded';exception when raise_exception then if SQLERRM<>'State or revision conflict' then raise;end if;end;
+ result:=ma_submit((a->>'id')::uuid,u,key,'{"1":"Accurate"}','{"sections":{"A":{"earned":2,"possible":20},"F":{"earned":null,"possible":10}}}');
+ if result is distinct from ma_submit((a->>'id')::uuid,u,key,'{}','{}')then raise exception 'Submission not idempotent';end if;
+ if(select answers->>'1'from ma_attempts where id=(a->>'id')::uuid)<>'Accurate'then raise exception 'Replay edited submitted answers';end if;
+ begin insert into ma_attempts(candidate_id,assessment_id,version,status,deadline)values(c,'ROLE-009-SA01','SA01-1.0-source','in_progress',now()+interval '70 minutes');raise exception 'Duplicate original succeeded';exception when unique_violation then null;end;
+ begin perform ma_invite(o,u,'fixture-1','fixture@example.invalid','+15555550100','synthetic','new-hash');raise exception 'Invitation bypassed completed original';exception when raise_exception then if SQLERRM<>'Existing attempt requires authorized retake' then raise;end if;end;
+ begin insert into ma_invitations(candidate_id,assessment_id,version,token_hash,expires_at,attempt_number)values(c,'ROLE-009-SA01','SA01-1.0-source','bad-retake',now()+interval '1 day',2);raise exception 'Unapproved retake accepted';exception when check_violation then null;end;
+ inv:=ma_invite(o,u,'fixture-2','fixture2@example.invalid','+15555550101','synthetic','fixture-hash-2');
+ perform ma_revoke_invitation((inv->>'id')::uuid,u,o);
+ begin perform ma_enroll('fixture-hash-2',u,'fixture2@example.invalid','+15555550101',true);raise exception 'Revoked link accepted';exception when raise_exception then if SQLERRM<>'Invitation unavailable' then raise;end if;end;
+end $$;
+rollback;
+select 'PASS: consent, identity binding, 31 snapshots, invitation replay, stale save, idempotent submit, duplicate original, retake guard, revoke; fixtures rolled back' as evidence;
