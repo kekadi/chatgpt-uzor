@@ -27,9 +27,14 @@ Environment: Node v24.19.0; Supabase nhjuafnlnhbhfshsqxpx; Vercel delta-ma-appre
 | Edge function deployment | PASS | ma-apprentice-assessment ACTIVE v2, verify_jwt=true |
 | Enrollment release flag | PASS | additive migration enables invitation enrollment; verified by SQL |
 | No retained synthetic applicants | PASS | database tests rolled back |
-| New frontend immutable/canonical release | PENDING RELEASE | run after Git commit/deployment; completion response records outcome |
+| New frontend immutable/canonical release | PASS | Vercel dpl_679s3y6UobqEUZPUZQsqSgdRhRQ1 READY, Git dfad5429dd0a56dc2e3ee7a13806bac4b47d216a; immutable applicant/admin and canonical home/applicant/admin HTTP 200 with updated content |
+| Direct canonical access and security headers | PASS | unauthenticated urllib fetched updated pages, no Vercel challenge; Referrer-Policy no-referrer and X-Frame-Options DENY |
+| Private hosted source routes | PASS | scoring, shared scoring and enrollment SQL paths HTTP 404 |
+| Live unauthenticated API/table access | PASS | anonymous and invalid-session invitation API HTTP 401; anonymous ma_candidates/ma_release_settings REST HTTP 401 |
 
 Applied enrollment migration: 20261010081302_enable_apprentice_invitation_enrollment.sql.
 Original schema migration: 20261010073711_create_medical_assistant_apprentice_assessment.sql.
 Vercel protection was not modified. Automatic review rejected clearing whole-project SSO; direct canonical access already works, so no bypass was used.
 Existing caregiver records/functions remain untouched. No invitation messages were sent. No password, service credential, real user session or OTP was retrieved.
+
+Local command node --test tests/*.test.mjs: 26 passed, 0 failed. Tests for the original demo are included in this count and are distinct from live applicant UI tests.
