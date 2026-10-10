@@ -1,0 +1,10 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {score,composite,csv} from '../src/scoring.mjs';
+const a=Object.fromEntries(['Accurate','Time','MRN','Accurate','Phone','Accurate','DOB','Accurate','Accurate','Time',...'CBCCCBCBBBCCBBBBACAB'].map((v,i)=>[i+1,v]));a[31]='Example response';
+test('exact source keys and section denominators',()=>{const s=score(a,[2,2,1,1,2,2]);assert.equal(s.total,100);assert.equal(s.objective,90);assert.deepEqual(s.critical,[]);assert.deepEqual(Object.values(s.sections).map(x=>x.possible),[20,15,15,25,15,10]);assert.equal(s.sections.A.correct,10);});
+test('missing human rating remains pending',()=>{const s=score(a);assert.equal(s.total,null);assert.equal(s.sections.F.earned,null);assert.equal(s.objective,90);assert.equal(s.sections.F.correct,null);});
+test('classification without discrepancy field earns no credit',()=>{assert.equal(score({...a,2:'Discrepancy'},[2,2,1,1,2,2]).sections.A.earned,18)});
+test('critical failure remains flagged even with high total',()=>{const s=score({...a,21:'A'},[2,2,1,1,2,2]);assert.equal(s.total,95);assert.deepEqual(s.critical,[21]);assert.equal(s.recommendedGates.critical,false)});
+test('empty form objective zero but written stays pending',()=>{const s=score({});assert.equal(s.objective,0);assert.equal(s.total,null);assert.equal(s.sections.A.attempted,0)});
+test('bounds and unknown responses rejected',()=>{assert.throws(()=>score(a,[3,2,1,1,2,2]));assert.throws(()=>score({...a,32:'A'}));assert.throws(()=>score({...a,12:'Q'}));});
+test('composite requires every component',()=>{assert.equal(composite(80,null,90),null);assert.equal(composite(80,90,100),89);assert.throws(()=>composite(101,90,90))});
+test('CSV escaping and spreadsheet injection defense',()=>{assert.equal(csv([['a,b','say "hi"','=CMD()']]),'"a,b","say ""hi""","\'=CMD()"')});

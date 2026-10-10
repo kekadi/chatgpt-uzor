@@ -1,0 +1,60 @@
+{
+  "roster": [
+    [
+      "Maria Lopez",
+      "04/12/1948",
+      "104382",
+      "9:00 AM",
+      "Follow-up",
+      "817-555-0124"
+    ],
+    [
+      "Harold Green",
+      "11/03/1939",
+      "104515",
+      "9:20 AM",
+      "Annual wellness",
+      "817-555-0177"
+    ],
+    [
+      "Evelyn Carter",
+      "08/19/1951",
+      "104627",
+      "9:40 AM",
+      "Same-day",
+      "817-555-0196"
+    ],
+    [
+      "James Wilson",
+      "02/28/1946",
+      "104711",
+      "10:00 AM",
+      "Follow-up",
+      "682-555-0119"
+    ],
+    [
+      "Alice Nguyen",
+      "06/08/1956",
+      "104804",
+      "10:20 AM",
+      "Lab visit",
+      "817-555-0161"
+    ],
+    [
+      "Samuel Brown",
+      "12/15/1942",
+      "104955",
+      "10:40 AM",
+      "Follow-up",
+      "469-555-0142"
+    ]
+  ],
+  "instructions": {
+    "A": "Compare the work-queue entry with the roster. Select Accurate, or Discrepancy and the incorrect field. Each item is 2 points.",
+    "B": "For this section only: follow-up = 20 minutes; new patient and annual wellness = 40 minutes; no overbooking. Kilograms = pounds / 2.2.",
+    "C": "Choose the best response. Each item is 3 points.",
+    "D": "Delta rules: apprentices do not diagnose, prescribe, change doses, or independently triage. Escalate potential emergencies immediately under protocol. Use two patient identifiers. Disclose PHI only to authorized persons for permitted purposes. Report exposure/sharps incidents immediately.",
+    "E": "Mock routing guide: appointments → Scheduling; refills → Clinical/Refill; results → Clinical/Provider; statements/payments → Billing; referral authorization/status → Referrals; forms/FMLA/disability paperwork → Forms/Admin. Potential emergencies → immediate verbal escalation under emergency protocol, not a routine queue.",
+    "F": "Write a concise message for the clinical team. Do not give medical advice."
+  }
+}

@@ -1,0 +1,590 @@
+[
+  {
+    "id": 1,
+    "item_id": "ROLE-009-SA01-Q01",
+    "section": "A",
+    "prompt": "Maria Lopez | 04/12/1948 | MRN 104382 | 9:00 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 2,
+    "item_id": "ROLE-009-SA01-Q02",
+    "section": "A",
+    "prompt": "Harold Green | 11/03/1939 | MRN 104515 | 9:40 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 3,
+    "item_id": "ROLE-009-SA01-Q03",
+    "section": "A",
+    "prompt": "Evelyn Carter | 08/19/1951 | MRN 104672 | 9:40 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 4,
+    "item_id": "ROLE-009-SA01-Q04",
+    "section": "A",
+    "prompt": "James Wilson | 02/28/1946 | MRN 104711 | 10:00 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 5,
+    "item_id": "ROLE-009-SA01-Q05",
+    "section": "A",
+    "prompt": "Alice Nguyen | 06/08/1956 | 817-555-0167 | 10:20 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 6,
+    "item_id": "ROLE-009-SA01-Q06",
+    "section": "A",
+    "prompt": "Samuel Brown | 12/15/1942 | MRN 104955 | 10:40 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 7,
+    "item_id": "ROLE-009-SA01-Q07",
+    "section": "A",
+    "prompt": "Maria Lopez | 04/21/1948 | MRN 104382 | 9:00 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 8,
+    "item_id": "ROLE-009-SA01-Q08",
+    "section": "A",
+    "prompt": "Harold Green | 11/03/1939 | 817-555-0177 | 9:20 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 9,
+    "item_id": "ROLE-009-SA01-Q09",
+    "section": "A",
+    "prompt": "Evelyn Carter | 08/19/1951 | 817-555-0196 | 9:40 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 10,
+    "item_id": "ROLE-009-SA01-Q10",
+    "section": "A",
+    "prompt": "James Wilson | 02/28/1946 | MRN 104711 | 10:20 AM",
+    "options": [],
+    "points": 2
+  },
+  {
+    "id": 11,
+    "item_id": "ROLE-009-SA01-Q11",
+    "section": "B",
+    "prompt": "An annual wellness visit starts at 9:20 AM and is scheduled for 40 minutes. At what time should it end?",
+    "options": [
+      {
+        "id": "A",
+        "text": "9:40 AM"
+      },
+      {
+        "id": "B",
+        "text": "9:50 AM"
+      },
+      {
+        "id": "C",
+        "text": "10:00 AM"
+      },
+      {
+        "id": "D",
+        "text": "10:20 AM"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 12,
+    "item_id": "ROLE-009-SA01-Q12",
+    "section": "B",
+    "prompt": "A provider has a standard follow-up beginning at 10:00 AM. What is the earliest next available standard follow-up slot?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10:10 AM"
+      },
+      {
+        "id": "B",
+        "text": "10:20 AM"
+      },
+      {
+        "id": "C",
+        "text": "10:30 AM"
+      },
+      {
+        "id": "D",
+        "text": "10:40 AM"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 13,
+    "item_id": "ROLE-009-SA01-Q13",
+    "section": "B",
+    "prompt": "A mock patient weighs 154 lb. Using the formula above, what is the approximate weight in kilograms?",
+    "options": [
+      {
+        "id": "A",
+        "text": "60 kg"
+      },
+      {
+        "id": "B",
+        "text": "65 kg"
+      },
+      {
+        "id": "C",
+        "text": "70 kg"
+      },
+      {
+        "id": "D",
+        "text": "75 kg"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 14,
+    "item_id": "ROLE-009-SA01-Q14",
+    "section": "B",
+    "prompt": "From 8:00 AM through 12:00 PM, how many 20-minute appointment slots are available if no breaks or overbooking are used?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10"
+      },
+      {
+        "id": "B",
+        "text": "11"
+      },
+      {
+        "id": "C",
+        "text": "12"
+      },
+      {
+        "id": "D",
+        "text": "14"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 15,
+    "item_id": "ROLE-009-SA01-Q15",
+    "section": "B",
+    "prompt": "A fictional patient has an $85 balance and pays $60. What balance remains?",
+    "options": [
+      {
+        "id": "A",
+        "text": "$15"
+      },
+      {
+        "id": "B",
+        "text": "$20"
+      },
+      {
+        "id": "C",
+        "text": "$25"
+      },
+      {
+        "id": "D",
+        "text": "$35 Delta Medical PA - MA Apprenticeship Selection Assessment"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 16,
+    "item_id": "ROLE-009-SA01-Q16",
+    "section": "C",
+    "prompt": "An older adult says, \u201cI cannot hear you very well.\u201d What is the best first response?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Speak only to the family member."
+      },
+      {
+        "id": "B",
+        "text": "Face the patient, reduce background noise, speak clearly at a normal pace, and confirm understanding."
+      },
+      {
+        "id": "C",
+        "text": "Raise your voice as loudly as possible."
+      },
+      {
+        "id": "D",
+        "text": "Hand the patient a form and end the conversation."
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 17,
+    "item_id": "ROLE-009-SA01-Q17",
+    "section": "C",
+    "prompt": "A patient\u2019s adult daughter asks for laboratory results. You do not know whether she is authorized to receive them. What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Give the results because she is family."
+      },
+      {
+        "id": "B",
+        "text": "Give only the \u201cnormal\u201d results."
+      },
+      {
+        "id": "C",
+        "text": "Verify authorization and follow privacy policy before disclosing any information."
+      },
+      {
+        "id": "D",
+        "text": "Ask another patient in the waiting room what they would do."
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 18,
+    "item_id": "ROLE-009-SA01-Q18",
+    "section": "C",
+    "prompt": "An older patient is frustrated because the physician is running behind. Which response is best?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Tell the patient the delay is the physician\u2019s fault."
+      },
+      {
+        "id": "B",
+        "text": "Acknowledge the concern, give an accurate update if available, and offer appropriate options without blaming anyone."
+      },
+      {
+        "id": "C",
+        "text": "Ignore the concern until the patient calms down."
+      },
+      {
+        "id": "D",
+        "text": "Promise a specific time even if you do not know it."
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 19,
+    "item_id": "ROLE-009-SA01-Q19",
+    "section": "C",
+    "prompt": "A patient using a walker appears to be having difficulty reaching the exam area. What is the best approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grab the walker and pull it forward."
+      },
+      {
+        "id": "B",
+        "text": "Ask the patient how you can assist, preserve independence, and obtain trained help if needed."
+      },
+      {
+        "id": "C",
+        "text": "Tell the patient to wait for a family member."
+      },
+      {
+        "id": "D",
+        "text": "Assume the patient cannot walk safely and cancel the visit."
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 20,
+    "item_id": "ROLE-009-SA01-Q20",
+    "section": "C",
+    "prompt": "A patient appears confused about follow-up instructions. What is the best response?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Repeat the same words faster."
+      },
+      {
+        "id": "B",
+        "text": "Use plain language, ask the patient to repeat the plan back in their own words, and involve an authorized caregiver when appropriate."
+      },
+      {
+        "id": "C",
+        "text": "Tell the patient to search online later."
+      },
+      {
+        "id": "D",
+        "text": "Document \u201cpatient confused\u201d and take no further action. Delta Medical PA - MA Apprenticeship Selection Assessment"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 21,
+    "item_id": "ROLE-009-SA01-Q21",
+    "section": "D",
+    "prompt": "A caller reports new severe chest pressure and shortness of breath. What is the best action?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Schedule the caller for next week."
+      },
+      {
+        "id": "B",
+        "text": "Ask enough questions to decide whether the caller is having a heart attack."
+      },
+      {
+        "id": "C",
+        "text": "Immediately follow Delta\u2019s emergency escalation protocol and alert licensed clinical staff; do not independently diagnose."
+      },
+      {
+        "id": "D",
+        "text": "Tell the caller to double the blood-pressure medicine."
+      }
+    ],
+    "points": 5
+  },
+  {
+    "id": 22,
+    "item_id": "ROLE-009-SA01-Q22",
+    "section": "D",
+    "prompt": "A patient asks, \u201cMy blood pressure was high this morning. Should I take an extra tablet?\u201d What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Recommend an extra tablet because the pressure is high."
+      },
+      {
+        "id": "B",
+        "text": "Tell the patient to skip the next dose."
+      },
+      {
+        "id": "C",
+        "text": "Do not change or recommend medication dosing; route/escalate the question to the appropriate licensed clinician."
+      },
+      {
+        "id": "D",
+        "text": "Search the internet and read the first result to the patient."
+      }
+    ],
+    "points": 5
+  },
+  {
+    "id": 23,
+    "item_id": "ROLE-009-SA01-Q23",
+    "section": "D",
+    "prompt": "A spouse asks for test results, but you cannot confirm authorization to receive the patient\u2019s information. What is the best response?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Release the results because spouses usually share information."
+      },
+      {
+        "id": "B",
+        "text": "Confirm authorization and follow privacy policy before any disclosure."
+      },
+      {
+        "id": "C",
+        "text": "Release only medication information."
+      },
+      {
+        "id": "D",
+        "text": "Leave the results on voicemail without confirming the number."
+      }
+    ],
+    "points": 5
+  },
+  {
+    "id": 24,
+    "item_id": "ROLE-009-SA01-Q24",
+    "section": "D",
+    "prompt": "You notice that a printed label does not match the two patient identifiers on the chart. What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the label if the last name looks similar."
+      },
+      {
+        "id": "B",
+        "text": "Stop the process, do not use the label, correct the mismatch under policy, and notify the appropriate staff member if required."
+      },
+      {
+        "id": "C",
+        "text": "Cross out the name and handwrite a new one without checking."
+      },
+      {
+        "id": "D",
+        "text": "Ask the patient to decide which label is correct."
+      }
+    ],
+    "points": 5
+  },
+  {
+    "id": 25,
+    "item_id": "ROLE-009-SA01-Q25",
+    "section": "D",
+    "prompt": "During training, you sustain a needlestick from a used training device that has been designated as a potential exposure. What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Finish the shift and mention it later if symptoms develop."
+      },
+      {
+        "id": "B",
+        "text": "Immediately follow the exposure-control procedure, including first aid and prompt reporting."
+      },
+      {
+        "id": "C",
+        "text": "Hide the incident because it occurred during training."
+      },
+      {
+        "id": "D",
+        "text": "Discard the device and take no other action. Delta Medical PA - MA Apprenticeship Selection Assessment"
+      }
+    ],
+    "points": 5
+  },
+  {
+    "id": 26,
+    "item_id": "ROLE-009-SA01-Q26",
+    "section": "E",
+    "prompt": "A patient wants to move a routine follow-up from Tuesday to Thursday.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Billing"
+      },
+      {
+        "id": "B",
+        "text": "Scheduling"
+      },
+      {
+        "id": "C",
+        "text": "Referrals"
+      },
+      {
+        "id": "D",
+        "text": "Forms/Admin"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 27,
+    "item_id": "ROLE-009-SA01-Q27",
+    "section": "E",
+    "prompt": "A patient says the pharmacy has no refills remaining for a long-term medication and requests renewal.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Clinical/Refill queue"
+      },
+      {
+        "id": "B",
+        "text": "Billing"
+      },
+      {
+        "id": "C",
+        "text": "Scheduling"
+      },
+      {
+        "id": "D",
+        "text": "Referrals"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 28,
+    "item_id": "ROLE-009-SA01-Q28",
+    "section": "E",
+    "prompt": "A patient asks whether the results of a recent CT scan were normal.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Scheduling"
+      },
+      {
+        "id": "B",
+        "text": "Forms/Admin"
+      },
+      {
+        "id": "C",
+        "text": "Clinical/Provider queue"
+      },
+      {
+        "id": "D",
+        "text": "Billing"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 29,
+    "item_id": "ROLE-009-SA01-Q29",
+    "section": "E",
+    "prompt": "A patient asks why the statement shows a $42 balance.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Billing"
+      },
+      {
+        "id": "B",
+        "text": "Clinical/Refill queue"
+      },
+      {
+        "id": "C",
+        "text": "Referrals"
+      },
+      {
+        "id": "D",
+        "text": "Scheduling"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 30,
+    "item_id": "ROLE-009-SA01-Q30",
+    "section": "E",
+    "prompt": "A patient says a specialist has not received an authorization and wants a status update.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Billing"
+      },
+      {
+        "id": "B",
+        "text": "Referrals"
+      },
+      {
+        "id": "C",
+        "text": "Forms/Admin"
+      },
+      {
+        "id": "D",
+        "text": "Clinical/Provider queue Delta Medical PA - MA Apprenticeship Selection Assessment"
+      }
+    ],
+    "points": 3
+  },
+  {
+    "id": 31,
+    "item_id": "ROLE-009-SA01-Q31",
+    "section": "F",
+    "prompt": "Read the fictional call and write a concise message for the clinical team. Do not give medical advice. Samuel Brown, DOB 12/15/1942, phone 469-555-0142, calls at 2:10 PM. He requests a refill of lisinopril 10 mg and says he has two tablets left. Preferred pharmacy: Walgreens on Main Street. He reports no urgent symptoms. He also asks whether he should take an extra tablet because his blood pressure was \u201chigh\u201d this morning.",
+    "points": 10,
+    "options": []
+  }
+]
