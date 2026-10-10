@@ -1,7 +1,7 @@
 begin;
 set local role service_role;
 do $$
-declare o uuid:=gen_random_uuid();u uuid;c uuid;inv jsonb;a jsonb;result jsonb;key uuid:=gen_random_uuid();begin
+declare o uuid:=gen_random_uuid();u uuid;c uuid;inv jsonb;reissued jsonb;a jsonb;result jsonb;key uuid:=gen_random_uuid();begin
  select r.user_id into u from ma_user_roles r join ma_organizations org on org.id=r.org_id where org.name='Delta Medical PA' and r.role='assessment_admin' limit 1;
  if u is null then raise exception 'An authorized existing administrator is required';end if;
  insert into ma_organizations(id,name)values(o,'ROLLBACK-only enrollment fixture');
@@ -22,9 +22,14 @@ declare o uuid:=gen_random_uuid();u uuid;c uuid;inv jsonb;a jsonb;result jsonb;k
  begin insert into ma_attempts(candidate_id,assessment_id,version,status,deadline)values(c,'ROLE-009-SA01','SA01-1.0-source','in_progress',now()+interval '70 minutes');raise exception 'Duplicate original succeeded';exception when unique_violation then null;end;
  begin perform ma_invite(o,u,'fixture-1','fixture@example.invalid','+15555550100','synthetic','new-hash');raise exception 'Invitation bypassed completed original';exception when raise_exception then if SQLERRM<>'Existing attempt requires authorized retake' then raise;end if;end;
  begin insert into ma_invitations(candidate_id,assessment_id,version,token_hash,expires_at,attempt_number)values(c,'ROLE-009-SA01','SA01-1.0-source','bad-retake',now()+interval '1 day',2);raise exception 'Unapproved retake accepted';exception when check_violation then null;end;
- inv:=ma_invite(o,u,'fixture-2','fixture2@example.invalid','+15555550101','synthetic','fixture-hash-2');
+ inv:=ma_invite(o,u,null,'fixture2@example.invalid','+15555550101','synthetic','fixture-hash-2');
+ if inv->>'application_id' !~ '^MA-[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$' then raise exception 'ID not generated';end if;
+ reissued:=ma_invite(o,u,null,'fixture2@example.invalid','+15555550101','synthetic','fixture-hash-3');
+ if reissued->>'application_id' is distinct from inv->>'application_id' then raise exception 'Reissue changed application ID';end if;
+ if not exists(select 1 from ma_invitations where id=(inv->>'id')::uuid and revoked_at is not null)then raise exception 'Prior invitation not revoked';end if;
+ inv:=reissued;
  perform ma_revoke_invitation((inv->>'id')::uuid,u,o);
  begin perform ma_enroll('fixture-hash-2',u,'fixture2@example.invalid','+15555550101',true);raise exception 'Revoked link accepted';exception when raise_exception then if SQLERRM<>'Invitation unavailable' then raise;end if;end;
 end $$;
 rollback;
-select 'PASS: consent, identity binding, 31 snapshots, invitation replay, stale save, idempotent submit, duplicate original, retake guard, revoke; fixtures rolled back' as evidence;
+select 'PASS: consent, identity binding, 31 snapshots, invitation replay, stale save, idempotent submit, duplicate original, retake guard, revoke, automatic ID allocation and reissue reuse; fixtures rolled back' as evidence;

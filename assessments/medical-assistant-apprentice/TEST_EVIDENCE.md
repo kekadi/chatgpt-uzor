@@ -26,7 +26,7 @@ Environment: Node v24.19.0; Supabase nhjuafnlnhbhfshsqxpx; Vercel delta-ma-appre
 | Public navigation and keyboard focus | PASS | home to applicant to admin links resolve; email Tab focuses password with visible outline; empty admin submit focuses required email |
 | Mobile viewport rendering and physical device behavior | NOT TESTED | responsive CSS reviewed; browser exposes no viewport resize API; Windows, macOS, Safari, iOS and Android hardware not exercised |
 | Canonical /candidate.html and /admin.html accessible without Vercel login | PASS | direct urllib GETs returned actual application HTML, 200, before this frontend release |
-| Edge function deployment | PASS | ma-apprentice-assessment ACTIVE v3, verify_jwt=true |
+| Edge function deployment | PASS | ma-apprentice-assessment ACTIVE v4, verify_jwt=true |
 | Enrollment release flag | PASS | additive migration enables invitation enrollment; verified by SQL |
 | No retained synthetic applicants | PASS | database tests rolled back |
 | New frontend immutable/canonical release | PASS | Vercel dpl_679s3y6UobqEUZPUZQsqSgdRhRQ1 READY, Git dfad5429dd0a56dc2e3ee7a13806bac4b47d216a; immutable applicant/admin and canonical home/applicant/admin HTTP 200 with updated content |
@@ -39,8 +39,10 @@ Original schema migration: 20261010073711_create_medical_assistant_apprentice_as
 Vercel protection was not modified. Automatic review rejected clearing whole-project SSO; direct canonical access already works, so no bypass was used.
 Existing caregiver records/functions remain untouched. No invitation messages were sent. No password, service credential, real user session or OTP was retrieved.
 
-Local command node --test tests/*.test.mjs: 27 passed, 0 failed. Tests for the original demo are included in this count and are distinct from live applicant UI tests.
+Local command node --test tests/*.test.mjs: 28 passed, 0 failed. Tests for the original demo are included in this count and are distinct from live applicant UI tests.
 
 Live browser QA used deployed source 256e5d4d99138e75d5b4c213bcaa556a8851107f, Vercel dpl_7s66asL7UWaWwcbeTVxkYEqzvGU5. Canonical /admin and /candidate resolve after the cleanUrls routing fix. All three public pages render without horizontal overflow at the tested desktop viewport. Applicant service status correctly reports disabled new phone verification and requires a personal invitation. Signed-in dashboard operations and the full applicant workflow were not exercised in this browser session. No application-origin console error was observed; browser extension errors were excluded. This QA update changes documentation only.
 
 Email-only authentication release: migration 20261010212017_remove_apprentice_phone_authentication.sql, Edge Function v3. Phone contact data retained; RPC p_phone kept for compatibility but no longer checked. Email confirmation, invitation email/Auth-user binding, consent, expiration/revocation, roles and attempt guards retained. Node tests: 27 passed. Email-only enrollment/start with null phone passed the live rollback-only database lifecycle test; revoked/wrong-email/consent/replay guards passed. No fixtures retained. Browser and HTTP deployment checks are reported separately after release.
+
+Automatic Application ID release: migration 20261010213843_auto_generate_apprentice_application_id.sql and Edge Function v4. New dashboard invitations omit manual application_id; database assigns MA- plus a UUID under the organization row lock, or reuses the matching email candidate ID for reissued invitations. Application ID is returned and displayed as read-only in the form and invitation list. Existing manual IDs remain compatible. All 28 Node tests passed; live rollback-only lifecycle test verified automatic allocation, same-ID reissue and prior invitation revocation. No fixtures retained.

@@ -23,9 +23,9 @@ Deno.serve(async req=>{
   const membership=await db('ma_user_roles?user_id=eq.'+user.id+'&org_id=eq.'+b.org_id+'&select=role');if(!membership.length||membership[0].role!==role)return reply({error:'Organization access denied'},403);
   if(['admin-invite','admin-revoke'].includes(b.action)&&role!=='assessment_admin')return reply({error:'Administrator role required'},403);
   if(b.action==='admin-invite'){
-   if(typeof b.email!=='string'||b.email.length>254||!/^\S+@\S+\.\S+$/.test(b.email)||typeof b.phone!=='string'||!/^\+[1-9][0-9]{6,14}$/.test(b.phone)||typeof b.application_id!=='string'||!b.application_id.trim()||b.application_id.length>100||typeof b.cohort!=='string'||!b.cohort.trim()||b.cohort.length>100)return reply({error:'Valid application ID, email, E.164 phone and cohort are required'},400);
+   if(typeof b.email!=='string'||b.email.length>254||!/^\S+@\S+\.\S+$/.test(b.email)||typeof b.phone!=='string'||!/^\+[1-9][0-9]{6,14}$/.test(b.phone)||(b.application_id!==undefined&&(typeof b.application_id!=='string'||!b.application_id.trim()||b.application_id.length>100))||typeof b.cohort!=='string'||!b.cohort.trim()||b.cohort.length>100)return reply({error:'Valid email, E.164 contact phone and cohort are required'},400);
    const token=[...crypto.getRandomValues(new Uint8Array(32))].map(x=>x.toString(16).padStart(2,'0')).join('');
-   const inv=await db('rpc/ma_invite','POST',{p_org:b.org_id,p_actor:user.id,p_application:b.application_id.trim(),p_email:b.email.trim().toLowerCase(),p_phone:b.phone,p_cohort:b.cohort.trim(),p_hash:await hash(token)});
+   const inv=await db('rpc/ma_invite','POST',{p_org:b.org_id,p_actor:user.id,p_application:b.application_id?.trim()||null,p_email:b.email.trim().toLowerCase(),p_phone:b.phone,p_cohort:b.cohort.trim(),p_hash:await hash(token)});
    return reply({...inv,invitation_url:ORIGINS[0]+'/candidate.html#invite='+token});
   }
   if(b.action==='admin-revoke'){if(!UUID.test(b.invitation_id))return reply({error:'Invitation required'},400);return reply(await db('rpc/ma_revoke_invitation','POST',{p_id:b.invitation_id,p_actor:user.id,p_org:b.org_id}));}
