@@ -1,6 +1,6 @@
 # Delta Medical PA geriatric CRM — development baseline
 
-This is an initial implementation in the `crm/` monorepo directory. It is not an operational PHI system or a completed Phase 1 release. No existing assessment database or production app is modified.
+This is an initial implementation in the `crm/` monorepo directory. It is not an operational PHI system or a completed Phase 1 release. Existing assessment records and functions are retained. The standalone continuation adds isolated synthetic-testing objects to the connected database.
 
 ## Run
 
@@ -39,7 +39,7 @@ Set the public Supabase URL/publishable key in the deployment's secure configura
 - No browser-level verification: the environment has no available supported browser. Unit/database tests and build/runtime smoke checks are recorded in TEST_EVIDENCE.md.
 - HIPAA vendor arrangements, secure hosting/storage configuration, backup restore validation, rate-limit setup and security review are required before PHI use.
 
-No database migrations were applied to the connected Supabase project. Live user sign-in and MFA cannot be verified until the isolated project is provisioned.
+The normalized CRM production schema has not been applied. The standalone continuation applies only the dedicated synthetic-testing workspace migrations to the connected project. Live user sign-in and MFA cannot be verified until the isolated project is provisioned.
 
 ## Standalone continuation
 
