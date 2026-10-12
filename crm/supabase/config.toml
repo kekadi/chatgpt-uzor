@@ -1,0 +1,2 @@
+[functions.crm-testing-state]
+verify_jwt = false
