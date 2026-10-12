@@ -40,3 +40,11 @@ Set the public Supabase URL/publishable key in the deployment's secure configura
 - HIPAA vendor arrangements, secure hosting/storage configuration, backup restore validation, rate-limit setup and security review are required before PHI use.
 
 No database migrations were applied to the connected Supabase project. Live user sign-in and MFA cannot be verified until the isolated project is provisioned.
+
+## Standalone continuation
+
+See docs/STANDALONE_SCOPE_UPDATE.md. eCW integration is optional and does not block testing. Module 16 now provides the current assessment/source catalog, thirty role-template references, program setup, synthetic enrollments and evidence-backed human review records. New test patients and coordination tasks can be registered without an EHR connection.
+
+Persistent testing uses `/api/testing` backed by the dedicated `crm-testing-state` gateway. Configure the three server-only CRM_TEST_STORAGE variables and keep Vercel protection on for all deployments. The scoped gateway credential is never sent to the browser. Run `node sync-testing-edge.mjs` before deploying the Edge Function so its generated model matches the app validator. Its JWT gateway setting is disabled because the function implements its own strong server-to-server authentication; it does not accept anonymous unverified requests.
+
+The original README's session-only description applies only when persistent testing is not configured. The active testing deployment is configured for shared persistence. Patient PHI mode remains separate and disabled. Existing assessment apps continue to manage their own candidate identity, data and scoring.

@@ -1,0 +1,608 @@
+[
+  {
+    "id": "ROLE-001",
+    "title": "Medical Assistant",
+    "family": "Medical",
+    "competencies": [
+      "clinical workflows",
+      "vitals and rooming",
+      "infection prevention",
+      "escalation",
+      "EHR documentation"
+    ],
+    "workSample": "rooming simulation; abnormal vital escalation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-002",
+    "title": "Medical Front Office Staff",
+    "family": "Medical",
+    "competencies": [
+      "scheduling",
+      "insurance verification",
+      "patient communication",
+      "privacy",
+      "cash handling"
+    ],
+    "workSample": "phone scheduling and eligibility scenario",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-003",
+    "title": "Ultrasound Technician",
+    "family": "Medical",
+    "competencies": [
+      "sonography fundamentals",
+      "image quality",
+      "patient safety",
+      "documentation",
+      "escalation"
+    ],
+    "workSample": "image-quality critique and patient positioning simulation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-004",
+    "title": "Medical Administrative Assistant",
+    "family": "Medical",
+    "competencies": [
+      "referrals",
+      "prior authorizations",
+      "inbox triage",
+      "records",
+      "privacy"
+    ],
+    "workSample": "referral and authorization work sample",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-005",
+    "title": "Nurse Practitioner",
+    "family": "Medical",
+    "competencies": [
+      "clinical reasoning",
+      "triage",
+      "scope and prescribing",
+      "evidence use",
+      "documentation"
+    ],
+    "workSample": "case-based clinical decisions reviewed by licensed clinician",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-006",
+    "title": "Virtual Physician Administrative Assistant",
+    "family": "Medical",
+    "competencies": [
+      "remote EHR workflows",
+      "inbox management",
+      "scheduling",
+      "privacy",
+      "asynchronous handoff"
+    ],
+    "workSample": "remote chart-routing and handoff simulation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-007",
+    "title": "Medical Weight Loss Clinic Medical Assistant",
+    "family": "Medical",
+    "competencies": [
+      "injection workflow within scope",
+      "GLP-1 patient education boundaries",
+      "vitals",
+      "inventory",
+      "adverse event escalation"
+    ],
+    "workSample": "medication storage and symptom-escalation simulation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-008",
+    "title": "Medical Clinic Site Supervisor",
+    "family": "Management",
+    "competencies": [
+      "staff scheduling",
+      "safety escalation",
+      "patient flow",
+      "coaching",
+      "compliance",
+      "operational metrics"
+    ],
+    "workSample": "staffing shortage and incident response case",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-009",
+    "title": "Medical Assistant Apprentice",
+    "family": "Medical",
+    "competencies": [
+      "basic terminology",
+      "numeracy",
+      "patient respect",
+      "trainability",
+      "safety",
+      "instruction following"
+    ],
+    "workSample": "basic rooming and teach-back exercise",
+    "version": "1.1-source-merged",
+    "label": "Scored assessment; supplemental bank requires human rating",
+    "selectionEligible": true,
+    "automatedScoringEligible": true,
+    "itemBankTarget": 120,
+    "fixedFormItems": 31,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-010",
+    "title": "Medical Assistant Intern",
+    "family": "Medical",
+    "competencies": [
+      "foundational workflow",
+      "documentation",
+      "communication",
+      "infection prevention",
+      "supervision"
+    ],
+    "workSample": "supervised vital-sign and handoff simulation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-011",
+    "title": "QuickBooks Specialist",
+    "family": "Financial",
+    "competencies": [
+      "chart of accounts",
+      "reconciliations",
+      "journal entries",
+      "audit trail",
+      "access controls"
+    ],
+    "workSample": "reconcile a synthetic bank statement",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-012",
+    "title": "Bookkeeper",
+    "family": "Financial",
+    "competencies": [
+      "ledger accuracy",
+      "accounts payable",
+      "receivables",
+      "reconciliation",
+      "confidentiality"
+    ],
+    "workSample": "categorize and correct a synthetic ledger",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-013",
+    "title": "Financial Software Administrator",
+    "family": "Financial",
+    "competencies": [
+      "role permissions",
+      "configuration",
+      "integrations",
+      "controls",
+      "troubleshooting"
+    ],
+    "workSample": "design least-privilege access and investigate discrepancy",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-014",
+    "title": "Accounts Payable Specialist",
+    "family": "Financial",
+    "competencies": [
+      "invoice matching",
+      "duplicate detection",
+      "approvals",
+      "vendor controls",
+      "data accuracy"
+    ],
+    "workSample": "three-way match and duplicate invoice test",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-015",
+    "title": "Accounts Receivable Specialist",
+    "family": "Financial",
+    "competencies": [
+      "cash application",
+      "aging",
+      "follow-up",
+      "disputes",
+      "privacy",
+      "reconciliation"
+    ],
+    "workSample": "resolve unapplied payments and aging cases",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-016",
+    "title": "Medical Billing Specialist",
+    "family": "Financial",
+    "competencies": [
+      "coding workflow awareness",
+      "claims",
+      "denials",
+      "payer follow-up",
+      "privacy"
+    ],
+    "workSample": "analyze synthetic denied claims",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-017",
+    "title": "Caregiver / Home Aide",
+    "family": "Domestic",
+    "competencies": [
+      "elder safety",
+      "transfers",
+      "medication reminders only",
+      "dialysis transport",
+      "emergencies",
+      "boundaries"
+    ],
+    "workSample": "fall response and dialysis-access bleeding escalation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-018",
+    "title": "Household Manager",
+    "family": "Domestic",
+    "competencies": [
+      "budget controls",
+      "vendor coordination",
+      "schedules",
+      "incident reporting",
+      "confidentiality"
+    ],
+    "workSample": "household expense approval and handover exercise",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-019",
+    "title": "Social Media Intern",
+    "family": "Social Media",
+    "competencies": [
+      "basic writing",
+      "platform literacy",
+      "brand guidelines",
+      "copyright",
+      "feedback"
+    ],
+    "workSample": "draft a caption from a brief",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-020",
+    "title": "Social Media Coordinator",
+    "family": "Social Media",
+    "competencies": [
+      "content calendar",
+      "scheduling",
+      "approvals",
+      "community responses",
+      "accuracy"
+    ],
+    "workSample": "build a one-week calendar",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-021",
+    "title": "Social Media Specialist",
+    "family": "Social Media",
+    "competencies": [
+      "content execution",
+      "engagement",
+      "analytics",
+      "moderation",
+      "platform standards"
+    ],
+    "workSample": "optimize posts from synthetic analytics",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-022",
+    "title": "Social Media Manager",
+    "family": "Social Media",
+    "competencies": [
+      "campaign strategy",
+      "budget",
+      "team coordination",
+      "metrics",
+      "crisis response"
+    ],
+    "workSample": "quarterly campaign plan and escalation case",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-023",
+    "title": "Community Manager",
+    "family": "Social Media",
+    "competencies": [
+      "moderation",
+      "empathy",
+      "escalation",
+      "community guidelines",
+      "response speed"
+    ],
+    "workSample": "respond to difficult community comments",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-024",
+    "title": "Social Media Content Creator / Videographer",
+    "family": "Social Media",
+    "competencies": [
+      "storyboarding",
+      "shooting",
+      "editing",
+      "accessibility",
+      "permissions",
+      "delivery"
+    ],
+    "workSample": "short video storyboard and editing brief",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-025",
+    "title": "Social Media Analyst",
+    "family": "Social Media",
+    "competencies": [
+      "metrics definitions",
+      "attribution limits",
+      "spreadsheet analysis",
+      "reporting",
+      "experiments"
+    ],
+    "workSample": "analyze synthetic campaign dataset",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-026",
+    "title": "Paid Social / Ads Specialist",
+    "family": "Social Media",
+    "competencies": [
+      "audiences",
+      "bidding",
+      "tracking",
+      "creative testing",
+      "spend controls",
+      "platform policy"
+    ],
+    "workSample": "allocate budget and diagnose campaign performance",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-027",
+    "title": "Content Strategist",
+    "family": "Social Media",
+    "competencies": [
+      "audience research",
+      "messaging",
+      "editorial planning",
+      "SEO",
+      "measurement"
+    ],
+    "workSample": "content pillar and distribution strategy",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-028",
+    "title": "Head of Social / Lead",
+    "family": "Social Media",
+    "competencies": [
+      "team leadership",
+      "governance",
+      "cross-channel strategy",
+      "reporting",
+      "coaching"
+    ],
+    "workSample": "prioritization and team operating model case",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-029",
+    "title": "Director of Social Media",
+    "family": "Social Media",
+    "competencies": [
+      "portfolio strategy",
+      "resource allocation",
+      "executive reporting",
+      "reputation",
+      "governance"
+    ],
+    "workSample": "annual strategy and crisis board briefing",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  },
+  {
+    "id": "ROLE-030",
+    "title": "General Operations Manager",
+    "family": "Management",
+    "competencies": [
+      "delegation",
+      "financial judgment",
+      "process improvement",
+      "ethics",
+      "conflict resolution"
+    ],
+    "workSample": "operating plan and personnel conflict simulation",
+    "version": "1.0-draft",
+    "label": "Provisional — unvalidated draft assessment",
+    "selectionEligible": true,
+    "automatedScoringEligible": false,
+    "itemBankTarget": 120,
+    "fixedFormItems": null,
+    "humanReviewRequired": true
+  }
+]

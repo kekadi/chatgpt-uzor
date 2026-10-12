@@ -1,6 +1,8 @@
 # Delta Medical PA — Geriatric Primary Care CRM build scope
 Version: 1.0 proposed build baseline | Date: 2026-10-12 | Location: Burleson, Texas
 
+**Current scope amendment:** Read [STANDALONE_SCOPE_UPDATE.md](STANDALONE_SCOPE_UPDATE.md). Standalone operations and persistent testing proceed without eCW. Module 16 is included in the current testing build; eCW checks apply only to enabling that optional integration.
+
 ## Purpose and delivery boundaries
 Build one practice-wide modular CRM for geriatric primary care operations. eClinicalWorks (eCW) remains the authoritative clinical chart. The CRM owns coordination cases, assignments, communications, workflow history, operational reporting and controlled reference content. Support Windows, macOS, iOS and Android through a responsive browser interface.
 
