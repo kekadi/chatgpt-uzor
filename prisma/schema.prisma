@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("staff") // admin | supervisor | staff
+  title     String   @default("")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  referrals  Referral[]  @relation("AssignedReferrals")
+  dmeOrders  DMEOrder[]  @relation("AssignedDME")
+  priorAuths PriorAuth[] @relation("AssignedPA")
+  appeals    Appeal[]    @relation("AssignedAppeals")
+  auditLogs  AuditLog[]
+}
+
+model Patient {
+  id           String   @id @default(cuid())
+  mrn          String   @unique
+  firstName    String
+  lastName     String
+  dob          String
+  phone        String   @default("")
+  address      String   @default("")
+  city         String   @default("Burleson")
+  state        String   @default("TX")
+  zip          String   @default("")
+  primaryIns   String   @default("")
+  insId        String   @default("")
+  secondaryIns String   @default("")
+  provider     String   @default("")
+  ecwId        String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  referrals  Referral[]
+  dmeOrders  DMEOrder[]
+  priorAuths PriorAuth[]
+}
+
+model Referral {
+  id               String    @id @default(cuid())
+  refNumber        String    @unique
+  patientId        String
+  patient          Patient   @relation(fields: [patientId], references: [id])
+  assignedToId     String?
+  assignedTo       User?     @relation("AssignedReferrals", fields: [assignedToId], references: [id])
+  referringProvider String
+  specialty        String
+  specialist       String    @default("")
+  urgency          String    @default("Routine") // Routine | Urgent | STAT
+  status           String    @default("Pending") // Pending | Sent | Scheduled | Completed | Cancelled | Denied
+  diagnosis        String    @default("")
+  icdCode          String    @default("")
+  payer            String    @default("")
+  authRequired     Boolean   @default(false)
+  authNumber       String    @default("")
+  notes            String    @default("")
+  denialReason     String    @default("")
+  dateOrdered      DateTime  @default(now())
+  dateSent         DateTime?
+  dateScheduled    DateTime?
+  dateCompleted    DateTime?
+  dueDate          DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model DMEOrder {
+  id              String    @id @default(cuid())
+  orderNumber     String    @unique
+  patientId       String
+  patient         Patient   @relation(fields: [patientId], references: [id])
+  assignedToId    String?
+  assignedTo      User?     @relation("AssignedDME", fields: [assignedToId], references: [id])
+  equipment       String
+  vendor          String    @default("")
+  urgency         String    @default("Routine")
+  status          String    @default("Pending") // Pending | Ordered | Delivered | Denied | Cancelled
+  diagnosis       String    @default("")
+  icdCode         String    @default("")
+  payer           String    @default("")
+  authRequired    Boolean   @default(true)
+  authNumber      String    @default("")
+  quantity        Int       @default(1)
+  notes           String    @default("")
+  denialReason    String    @default("")
+  dateOrdered     DateTime  @default(now())
+  dateSubmitted   DateTime?
+  dateDelivered   DateTime?
+  dueDate         DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model PriorAuth {
+  id              String    @id @default(cuid())
+  paNumber        String    @unique
+  patientId       String
+  patient         Patient   @relation(fields: [patientId], references: [id])
+  assignedToId    String?
+  assignedTo      User?     @relation("AssignedPA", fields: [assignedToId], references: [id])
+  serviceType     String    // Referral | DME | Procedure | Medication | Lab
+  service         String
+  provider        String    @default("")
+  payer           String    @default("")
+  urgency         String    @default("Routine")
+  status          String    @default("Pending") // Pending | Submitted | Approved | Denied | P2P | Appealed | Expired
+  diagnosis       String    @default("")
+  icdCode         String    @default("")
+  cptCode         String    @default("")
+  authNumber      String    @default("")
+  notes           String    @default("")
+  denialReason    String    @default("")
+  denialCode      String    @default("")
+  dateRequested   DateTime  @default(now())
+  dateSubmitted   DateTime?
+  dateDecision    DateTime?
+  expirationDate  DateTime?
+  dueDate         DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  appeals Appeal[]
+}
+
+model Appeal {
+  id            String    @id @default(cuid())
+  appealNumber  String    @unique
+  priorAuthId   String?
+  priorAuth     PriorAuth? @relation(fields: [priorAuthId], references: [id])
+  assignedToId  String?
+  assignedTo    User?     @relation("AssignedAppeals", fields: [assignedToId], references: [id])
+  appealType    String    @default("P2P") // P2P | Written | External | IRO
+  referenceId   String    @default("")
+  payer         String    @default("")
+  service       String    @default("")
+  status        String    @default("Pending") // Pending | Scheduled | Completed | Won | Lost | Withdrawn
+  outcome       String    @default("")
+  p2pPhysician  String    @default("")
+  scheduledDate DateTime?
+  completedDate DateTime?
+  notes         String    @default("")
+  attachments   String    @default("")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Specialist {
+  id             String  @id @default(cuid())
+  name           String
+  specialty      String
+  practice       String  @default("")
+  address        String  @default("")
+  city           String  @default("Burleson")
+  state          String  @default("TX")
+  zip            String  @default("")
+  phone          String  @default("")
+  fax            String  @default("")
+  npi            String  @default("")
+  acceptMedicare Boolean @default(true)
+  acceptMedicaid Boolean @default(false)
+  network        String  @default("")
+  waitTime       String  @default("")
+  notes          String  @default("")
+  active         Boolean @default(true)
+  createdAt      DateTime @default(now())
+}
+
+model Vendor {
+  id          String  @id @default(cuid())
+  name        String
+  category    String  // DME | Lab | Imaging | Pharmacy | Transport | Other
+  address     String  @default("")
+  city        String  @default("Burleson")
+  state       String  @default("TX")
+  zip         String  @default("")
+  phone       String  @default("")
+  fax         String  @default("")
+  contact     String  @default("")
+  acceptMedicare Boolean @default(true)
+  notes       String  @default("")
+  active      Boolean @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  action     String
+  resource   String
+  resourceId String   @default("")
+  details    String   @default("")
+  ipAddress  String   @default("")
+  userAgent  String   @default("")
+  timestamp  DateTime @default(now())
+}
