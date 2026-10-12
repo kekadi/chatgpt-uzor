@@ -22,7 +22,7 @@ Deno.serve(async(req:Request)=>{
  const input=JSON.parse(raw), parsed=testingStateSchema.safeParse(input.state);
  if(!parsed.success||!Number.isInteger(input.revision)||input.revision<0)return reply({error:"Invalid synthetic testing state"},400);
  const {data,error}=await db.rpc("crm_write_testing_snapshot",{p_workspace:workspace,p_revision:input.revision,p_state:parsed.data});
- if(error)return reply({error:error.code==="40001"?"Revision conflict":"Save failed"},error.code==="40001"?409:503);
+ if(error)return reply({error:(error.code==="PT409"||error.code==="40001")?"Revision conflict":"Save failed"},(error.code==="PT409"||error.code==="40001")?409:503);
  return reply(data);
  }catch{return reply({error:"Testing storage request failed"},500);}
 });
