@@ -1,0 +1,5 @@
+import {access,AccessError,failure,sameOrigin,logRead} from '@/lib/access';
+import {z} from 'zod';
+const input=z.object({display_name:z.string().trim().min(1).max(200),mrn:z.string().trim().min(1).max(100),ecw_id:z.string().max(100).nullable().optional()});
+export async function GET(request:Request){try{const a=await access(request);const {data,error}=await a.db.schema('crm').from('patients').select('id,display_name,mrn,ecw_id,version').eq('practice_id',a.practice).is('archived_at',null).order('mrn').limit(100);if(error)throw error;await logRead(a,'patients');return Response.json({records:data},{headers:{'Cache-Control':'no-store'}});}catch(e){return failure(e);}}
+export async function POST(request:Request){try{sameOrigin(request);const a=await access(request);const p=input.safeParse(await request.json());if(!p.success)throw new AccessError(400,'Patient name and MRN required');const {data,error}=await a.db.schema('crm').from('patients').insert({...p.data,practice_id:a.practice}).select('id').single();if(error)throw error;return Response.json({id:data.id},{status:201});}catch(e){return failure(e);}}
